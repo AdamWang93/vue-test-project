@@ -2,8 +2,7 @@
   <div id="uploadPageDiv">
     <div id="uploadBoxDiv">
       <h1>Upload File Test for Doris</h1>
-      <input type="text" disabled=true>
-      <input type="file">
+      <UploadWithInput></UploadWithInput>
     </div>
   </div>
 </template>
@@ -11,11 +10,12 @@
 <script>
 // @ is an alias to /src
 import IdPasswordInput from "@/components/IdPasswordInput.vue";
+import UploadWithInput from "@/components/UploadWithInput.vue";
 
 export default {
   name: "UploadFile",
   components: {
-    // IdPasswordInput
+    UploadWithInput
   }
 };
 </script>
