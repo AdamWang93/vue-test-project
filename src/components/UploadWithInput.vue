@@ -13,10 +13,12 @@
                 class="uploadButtonDiv"
                 action="https://jsonplaceholder.typicode.com/posts/"
                 :multiple="false"
+                :auto-upload="false"
                 :show-file-list="false"
-                :limit="1"
                 :on-change="handleFileUploaded">
-                <el-button type="primary">Browser File</el-button>
+                <el-button slot="trigger" type="primary">Browser File</el-button>
+                <el-button style="margin-left: 10px;" type="success">upload to server</el-button>
+                <!-- <el-button type="primary">Browser File</el-button> -->
             </el-upload>
         </el-col>
     </el-row>
