@@ -1,35 +1,37 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import DesktopForegroundRouter from "./DesktopForegroundRouter";
+import DesktopBackgroundRouter from "./DesktopBackgroundRouter";
+import MobileForegroundRouter from "./MobileForegroundRouter";
+import MobileBackgroundRouter from "./MobileBackgroundRouter";
+import device from 'current-device';
 
 Vue.use(Router);
+Vue.use(DesktopForegroundRouter);
+
+var IsForeground = function() {  //Replace this function to your own to judge whether it is Foreground
+  return true;
+};
+
+var currentRouter;
+
+if (device.type === "desktop") {
+  if (IsForeground()) {
+    currentRouter = DesktopForegroundRouter;
+  }
+  else {
+    currentRouter = DesktopBackgroundRouter;
+  }
+} else if (device.type === "mobile") {
+  if (IsForeground()) {
+    currentRouter = MobileForegroundRouter;
+  }
+  else {
+    currentRouter = MobileBackgroundRouter;
+  }
+}
 
 export default new Router({
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: Home
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: function() {
-        return import(/* webpackChunkName: "about" */ "./views/About.vue");
-      }
-    },
-    {
-      path: "/upload",
-      name: "upload",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: function() {
-        return import(/* webpackChunkName: "about" */ "./views/UploadFileExample.vue");
-      }
-    }
-  ]
+  routes: currentRouter
 });
+
