@@ -19,7 +19,6 @@
                 ref="upload"
                 :show-file-list="false"
                 :on-change="handleFileUploaded"
-                :data="oFileData"
                 :http-request="handleHttpRequest">
                 <el-button slot="trigger" type="primary">Browser File</el-button>
                 <el-button style="margin-left: 10px;" type="success" @click="submitUpload">upload to server</el-button>
@@ -36,8 +35,7 @@ export default {
   name: "UploadWithInput",
   data: function() {
     return {
-      sFileName: "",
-      oFileData: {}
+      sFileName: ""
     };
   },
   methods: {
