@@ -36,7 +36,7 @@ export default {
 #home {
   overflow: auto;
   height: 100%;
-  background-image: url(../assets/home_background.jpg);
+  /* background-image: url(../assets/home_background.jpg); */
   background-size: contain;
   display: -webkit-flex;
   display: flex;

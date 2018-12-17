@@ -15,6 +15,7 @@ export default {
   },
   beforeMount: function() {
     this.inputType = this.isIdInput ? "text" : "password";
+    device.type;
   }
 };
 </script>
