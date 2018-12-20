@@ -5,7 +5,7 @@
     <div id="logonDiv">
       <h1>Log On</h1>
       <div id="idPswLabelDiv">
-       <label id="idText" for="idInput" style="display:inline-block;; margin-bottom:0.5rem">Id</label><br>
+       <label id="idText" for="idInput" style="display:inline-block; margin-bottom:0.5rem">Id</label><br>
        <label id="pswText" for="pswInput">Password</label>
       </div>
       <div id="idPswInputDiv">
@@ -14,6 +14,7 @@
        <div id="signInButtonDiv">
         <button class="signInButton">Sign in</button>
         <router-link to="/upload" tag="button" id="uploadFileButton" class="signInButton">Upload File Test</router-link>
+        <router-link to="/treeTest" tag="button" style="margin-left:1rem" id="navTreeButton" class="signInButton" >Tree Test</router-link>
        </div>
       </div>
     </div>
@@ -70,7 +71,7 @@ export default {
 
 #signInButtonDiv {
   margin-top: 2rem;
-  width: 50%;
+  width: 80%;
   text-align: end;
 }
 
