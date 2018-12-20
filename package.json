@@ -10,6 +10,8 @@
   "dependencies": {
     "current-device": "^0.7.8",
     "element-ui": "^2.4.11",
+    "loadsh": "0.0.3",
+    "lodash": "^4.17.11",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },

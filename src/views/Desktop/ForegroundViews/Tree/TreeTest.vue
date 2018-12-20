@@ -5,15 +5,26 @@
         <el-col :span=5>
           <div class="treeContainer">
             <Tree 
-              :model="mockTreeData"
+              :model="treeData"
               :onNodePressed="showInformation" />
           </div>
           <div class="addNodeContainer">
-            <el-input class="nodeInput" size="small"></el-input>
-            <el-button type="primary" class="addChildButton" size="small"> Add Child Node</el-button>
+            <el-input 
+              class="nodeInput" 
+              size="small"
+              v-model="newChildName"
+              :disabled="disableAddNode"></el-input>
+            <el-button 
+              type="primary" 
+              class="addChildButton" 
+              size="small"
+              :disabled="disableAddNode"
+              @click="onAddChildPressed"> 
+              Add Child Node
+            </el-button>
           </div>
         </el-col>
-        <el-col :span=19 v-show="treeClicked">
+        <el-col :span=19 v-show="informationVisible">
           <div class="informationContainer">
             <el-row>
               <el-col :span=12>
@@ -21,20 +32,23 @@
               </el-col>
               <el-col :span=12 class="saveDeleteNodeContainer">
                 <el-button type="primary" size="small">Save</el-button>
-                <el-button type="danger" size="small">Delete</el-button>
+                <el-button 
+                  type="danger"
+                  size="small"
+                  @click="onDeleteNodePressed">Delete</el-button>
               </el-col>
             </el-row>
             <div class="nodeInfoInputContainer">
               <div class="orgNameContainer">
                 <span style="margin-right:3rem">Upper Org</span>
-                <span>{{orgAttribute.parentName}}</span>
+                <span>{{currentTreeItem.parentName}}</span>
               </div>
               <div class="orgNameContainer">
                 <span style="margin-right:3rem; display:inline-block">Org Name</span>
                 <el-input 
                   size="small" 
                   class="orgNameInput"
-                  v-model="orgAttribute.name"/>
+                  v-model="nodeAttribute.name"/>
               </div>
             </div>
           </div>
@@ -54,19 +68,51 @@ export default {
   },
   data: function() {
     return {
-      mockTreeData: MockData.MockTreeData,
-      orgAttribute: {
-        name: "",
-        parentName: ""
+      treeData: MockData.MockTreeData,
+      // treeData: {},
+      currentTreeItem: {},
+      nodeAttribute: {
+        name: ""
       },
-      treeClicked: false
+      informationVisible: false,
+      newChildName: "",
+      currentLevel: 3
     };
   },
+  computed: {
+    disableAddNode: function() {
+      return this.currentLevel > 2;
+    }
+  },
   methods: {
-    showInformation: function(oParams) {
-      this.treeClicked = true;
-      this.orgAttribute.name = oParams.name;
-      this.orgAttribute.parentName = oParams.parentName;
+    showInformation: function(oTreeItem) {
+      this.informationVisible = true;
+
+      this.currentTreeItem = oTreeItem;
+
+      this.nodeAttribute.name = oTreeItem.name; //Copy name from tree, two-way bind in case
+      this.currentLevel = oTreeItem.level;
+    },
+
+    onAddChildPressed: function() {
+      //Call back-end API, then involve following code under success response.
+      this.currentTreeItem.children.push({
+        name: this.newChildName,
+        key: "get from back-end API!!!!!",
+        parentKey: this.currentTreeItem.key,
+        parentName: this.currentTreeItem.name,
+        level: this.currentTreeItem.level + 1,
+        children: []
+      });
+    },
+
+    onDeleteNodePressed: function() {
+      !!this.currentTreeItem.parentKey
+        ? this.currentTreeItem.deleteCurrentItem()
+        : (this.treeData = {});
+
+      this.informationVisible = false;
+      this.currentLevel = 3;
     }
   }
 };

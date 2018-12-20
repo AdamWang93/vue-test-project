@@ -22,8 +22,9 @@
       v-if="hasChildren"
       class="treeUl" >
         <Tree 
-            v-for="(model, index) in model.children"
-            v-bind:model="model"
+            v-bind:fatherChildren="model.children"
+            v-for="singleNode in model.children"
+            v-bind:model="singleNode"
             :onNodePressed="onNodePressed" />
     </ul>
   </li>
@@ -34,11 +35,13 @@ export default {
   name: "Tree",
   props: {
     model: Object,
-    onNodePressed: Function
+    onNodePressed: Function,
+    fatherChildren: Array
   },
   data: function() {
     return {
-      expanded: false
+      expanded: false,
+      rootDeleted: false
     };
   },
   computed: {
@@ -50,7 +53,7 @@ export default {
       }
     },
     hasChildren: function() {
-      return this.model.children && this.model.children.length;
+      return !!this.model.children && !!this.model.children.length > 0;
     }
   },
   methods: {
@@ -59,12 +62,18 @@ export default {
     },
 
     onTextPressed: function() {
-      var oParams = {
-        name: this.model.name,
-        parentName: this.model.parentName
+      var that = this;
+      this.model.deleteCurrentItem = function() {
+        if (!!that.model.parentKey) {
+          var iIndex = that.$lo.findIndex(that.fatherChildren, function(item) {
+            return item.key === that.model.key;
+          });
+          that.fatherChildren.splice(iIndex, 1);
+        } else {
+          that.modelCopy = {};
+        }
       };
-
-      this.onNodePressed(oParams);
+      this.onNodePressed(this.model);
     }
   }
 };
