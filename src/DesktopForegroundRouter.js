@@ -22,6 +22,13 @@ var routes = [
     component: function() {
       return import(/* webpackChunkName: "about" */ "./views/Desktop/ForegroundViews/UploadFileExample.vue");
     }
+  },
+  {
+    path: "/treeTest",
+    name: "treeTest",
+    component: function() {
+      return import(/* webpackChunkName: "about" */ "./views/Desktop/ForegroundViews/Tree/TreeTest.vue");
+    }
   }
 ]
 
