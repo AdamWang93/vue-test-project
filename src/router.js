@@ -7,7 +7,6 @@ import MobileBackgroundRouter from "./MobileBackgroundRouter";
 import device from 'current-device';
 
 Vue.use(Router);
-Vue.use(DesktopForegroundRouter);
 
 var IsForeground = function() {  //Replace this function to your own to judge whether it is Foreground
   return true;
