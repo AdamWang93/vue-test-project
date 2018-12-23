@@ -35,7 +35,7 @@
                 <el-button 
                   type="danger"
                   size="small"
-                  @click="onDeleteNodePressed">Delete</el-button>
+                  @click="messageDialogVisible = true">Delete</el-button>
               </el-col>
             </el-row>
             <div class="nodeInfoInputContainer">
@@ -54,17 +54,24 @@
           </div>
         </el-col>
     </el-row>
+    <MessageDialog 
+      message="Do you really want to delete this node?"
+      :dialogVisible="messageDialogVisible"
+      v-on:confirm-clicked="onDeleteNodePressed"
+      v-on:cancel-clicked="onDialogCancelPressed"/>
   </div>
 </template>
 
 <script>
 import MockData from "@/MockData.js";
 import Tree from "@/components/Tree.vue";
+import MessageDialog from "@/components/MessageDialog.vue";
 
 export default {
   name: "TreeTest",
   components: {
-    Tree
+    Tree,
+    MessageDialog
   },
   data: function() {
     return {
@@ -76,7 +83,8 @@ export default {
       },
       informationVisible: false,
       newChildName: "",
-      currentLevel: 3
+      currentLevel: 3,
+      messageDialogVisible: false
     };
   },
   computed: {
@@ -113,6 +121,11 @@ export default {
 
       this.informationVisible = false;
       this.currentLevel = 3;
+      this.messageDialogVisible = false;
+    },
+
+    onDialogCancelPressed: function() {
+      this.messageDialogVisible = false;
     }
   }
 };
