@@ -1,23 +1,39 @@
 <template>
   <div id="uploadPageDiv">
-    <div id="uploadBoxDiv">
+    <!-- <div id="uploadBoxDiv">
       <h1>Upload File Test for Doris</h1>
       <UploadWithInput></UploadWithInput>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import IdPasswordInput from "@/components/IdPasswordInput.vue";
-import UploadWithInput from "@/components/UploadWithInput.vue";
+import $ from "jquery";
+import "fullcalendar";
+import "fullcalendar/dist/fullcalendar.min.css";
 
 export default {
   name: "UploadFile",
-  components: {
-    UploadWithInput
+  mounted() {
+    $("#uploadPageDiv").fullCalendar({
+      defaultView: "agendaWeek",
+      slotDuration: "01:00:00",
+      minTime: "09:00:00",
+      maxTime: "18:00:00"
+    });
   }
 };
+
+// @ is an alias to /src
+// import IdPasswordInput from "@/components/IdPasswordInput.vue";
+// import UploadWithInput from "@/components/UploadWithInput.vue";
+
+// export default {
+//   name: "UploadFile",
+//   components: {
+//     UploadWithInput
+//   }
+// };
 </script>
 
 <style>

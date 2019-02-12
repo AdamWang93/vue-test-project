@@ -38,7 +38,21 @@ var mockData = {
                 ]
             }
         ]
-    }
+    },
+    MockTableData: [
+        {
+            positionName: "Session leader",
+            user: "Tom",
+        },
+        {
+            positionName: "Session chief",
+            user: "Sam",
+        },
+        {
+            positionName: "Department assistant",
+            user: "Amy",
+        }
+    ]
 }
 
 export default mockData;

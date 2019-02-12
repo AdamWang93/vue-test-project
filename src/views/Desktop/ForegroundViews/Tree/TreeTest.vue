@@ -9,7 +9,7 @@
               :onNodePressed="showInformation" />
           </div>
           <div class="addNodeContainer">
-            <el-input 
+            <el-input
               class="nodeInput" 
               size="small"
               v-model="newChildName"
@@ -19,7 +19,7 @@
               class="addChildButton" 
               size="small"
               :disabled="disableAddNode"
-              @click="onAddChildPressed"> 
+              @click="onAddChildPressed">
               Add Child Node
             </el-button>
           </div>
@@ -52,6 +52,10 @@
               </div>
             </div>
           </div>
+          <el-container class="smallMarginTop">
+            <el-header>Header</el-header>
+            <el-main>Main</el-main>
+          </el-container>
         </el-col>
     </el-row>
     <MessageDialog 
